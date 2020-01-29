@@ -14,8 +14,9 @@ function App() {
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
-		// add the given item to the cart
-		setCart(item);
+		if (cart.findIndex(cartItem => cartItem.id === item.id) === -1) {
+			setCart([...cart, item]);
+		}
 	};
 
 	return (
@@ -25,7 +26,7 @@ function App() {
 					<Navigation cart={cart} />
 					{/* Routes */}
 					<Route exact path='/' component={Products} />
-					<Route path='/cart' render={() => <ShoppingCart cart={cart} />} />
+					<Route path='/cart' component={ShoppingCart} />
 				</div>
 			</CartContext.Provider>
 		</ProductContext.Provider>
